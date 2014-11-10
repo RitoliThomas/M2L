@@ -1,18 +1,18 @@
 -- -----------------------------------------------------------------------------
---             GÃ©nÃ©ration d'une base de donnÃ©es pour
+--             Génération d'une base de données pour
 --                      Oracle Version 10g XE
 --                        
 -- -----------------------------------------------------------------------------
 --      Projet : MaisonDesLigues
---      Auteur : BenoÃ®t ROCHE
---      Date de derniÃ¨re modification : 19/01/2013 11:32:40
+--      Auteur : Benoît ROCHE
+--      Date de dernière modification : 19/01/2013 11:32:40
 -- -----------------------------------------------------------------------------
 
 -- -----------------------------------------------------------------------------
---      Partie 4: CrÃ©ation des triggers
+--      Partie 4: Création des triggers
 --
---		Ce script doit Ãªtre exÃ©cutÃ© par un l'utilisateur MDL
---		(celui qui vient d'Ãªtre crÃ©Ã© dans le script creer_user)
+--		Ce script doit être exécuté par un l'utilisateur MDL
+--		(celui qui vient d'être créé dans le script creer_user)
 --- -----------------------------------------------------------------------------
 
 ---------------------------------------------------------------------------------
@@ -20,9 +20,9 @@
 ---------------------------------------------------------------------------------
 
 /*
-trigger par ordre qui va se dÃ©clencher aprÃ¨s chaque mise Ã  jour d'une date/heure vacation
-On n'a pas pu faire de trigger par ligne en raison du problÃ¨me de table mutante.
-Ce n'est pas ce qui se fait de mieux en performance, mais ce sera nÃ©gligeable compte tenu du peu de modifications.
+trigger par ordre qui va se déclencher après chaque mise à jour d'une date/heure vacation
+On n'a pas pu faire de trigger par ligne en raison du problème de table mutante.
+Ce n'est pas ce qui se fait de mieux en performance, mais ce sera négligeable compte tenu du peu de modifications.
 */
 create or replace
 trigger trgauvacation after update on vacation
@@ -50,17 +50,17 @@ begin
   end if;
 exception
   when memetemps then
-    raise_application_error(-20203, 'Deux vacations d''un mÃªme atelier ne peuvent avoir lieu en mÃªme temps');
+    raise_application_error(-20203, 'Deux vacations d''un même atelier ne peuvent avoir lieu en même temps');
   when others then
-    raise_application_error(-20202, 'Erreur Ã  la mise Ã  jour des vacations de l''atelier');
+    raise_application_error(-20202, 'Erreur à la mise à jour des vacations de l''atelier');
 end;
 /
 ---------------------------------------------------------------------------------
 --					trigger TRGBIVACATION
 ---------------------------------------------------------------------------------
 /*
-trigger de ligne qui va se dÃ©clencher lors de chaque insertion d'une nouvelle vacation pour un atelier.
-Ce trigger a pour objectif de vÃ©rifier que la nouvelle vacation ne chevauche pas une autre vacation du mÃªme atelier
+trigger de ligne qui va se déclencher lors de chaque insertion d'une nouvelle vacation pour un atelier.
+Ce trigger a pour objectif de vérifier que la nouvelle vacation ne chevauche pas une autre vacation du même atelier
 */
 create or replace
 TRIGGER TRGBIVACATION before insert  on vacation
@@ -80,7 +80,7 @@ begin
     end if;
 exception
   when memetemps then
-    raise_application_error(-20203, 'Deux vacations d''un mÃªme atelier ne peuvent avoir lieu en mÃªme temps');
+    raise_application_error(-20203, 'Deux vacations d''un même atelier ne peuvent avoir lieu en même temps');
 end;
 /
 ---------------------------------------------------------------------------------
@@ -88,8 +88,8 @@ end;
 ---------------------------------------------------------------------------------
 
 /*
-trigger par ligne qui va se dÃ©clencherchaque fois que l'on va insÃ©rer un bÃ©nÃ©vole et qui ira vÃ©rifier 
-qu'il n'est pas dÃ©jÃ  inscrit. On ne peut le faire que par son numÃ©ro de licence
+trigger par ligne qui va se déclencherchaque fois que l'on va insérer un bénévole et qui ira vérifier 
+qu'il n'est pas déjà inscrit. On ne peut le faire que par son numéro de licence
 */
 create or replace
 trigger trgbi_benevole before insert on benevole              
@@ -102,17 +102,17 @@ begin
                                                                                 
 exception                                                                       
   when no_data_found then                                                       
-    raise_application_error(-20110, 'bÃ©nÃ©vole dÃ©jÃ  inscrit, \n vous devez faire une modification de bÃ©nÃ©vole');                   
+    raise_application_error(-20110, 'bénévole déjà inscrit, \n vous devez faire une modification de bénévole');                   
    when others then                                                             
-    raise_application_error(-20002, 'Erreur Ã  l''enregistrement');              
+    raise_application_error(-20002, 'Erreur à l''enregistrement');              
 end;
 /
 ---------------------------------------------------------------------------------
 --					trigger trgbiu_intervenant
 ---------------------------------------------------------------------------------
 /*
-trigger par ligne qui va vÃ©rifier, lors de la crÃ©ation ou de la modification d'un intevenant
-si on n'essaie pas de l'affecter en tant qu'animateur alors qu'un animeteur est dÃ©jÃ  affectÃ© sur le mÃªme atelier
+trigger par ligne qui va vérifier, lors de la création ou de la modification d'un intevenant
+si on n'essaie pas de l'affecter en tant qu'animateur alors qu'un animeteur est déjà affecté sur le même atelier
 */
 create or replace
 trigger trgbiu_intervenant before insert or update on intervenant
@@ -129,13 +129,13 @@ begin
     end if;                                                                     
 exception                                                                       
   when others then                                                              
-    raise_application_error(-20112 ,'cet atelier a dÃ©jÃ  son animateur, inscription impossible');                                                                                
+    raise_application_error(-20112 ,'cet atelier a déjà son animateur, inscription impossible');                                                                                
 end;
 /
 
 /*
-Trigger qui va se dÃ©clencher Ã  chaque crÃ©ation d'un atelier et qui va vÃ©rifier que 
-le nombre d'ateliers ne dÃ©passera pas la limite figurant dans la table parametre
+Trigger qui va se déclencher à chaque création d'un atelier et qui va vérifier que 
+le nombre d'ateliers ne dépassera pas la limite figurant dans la table parametre
 */
 create or replace
 trigger trgbi_atelier before insert on atelier

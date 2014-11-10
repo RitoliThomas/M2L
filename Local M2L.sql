@@ -1,6 +1,9 @@
 ##########################
 #######MISSION 1##########
 ##########################
+------
+------TO DO --VOIR création package "pckCreation" pour donner ensuite les droits à employe mdl(plus simple pour le futur) + synonyme
+------
 
 /*
 #Tâche 1 : Contrainte sur les dates
@@ -51,6 +54,8 @@ EXCEPTION
     raise_application_error(-20001, 'Erreur');
 END;
 /
+--création d'un synonyme temporaire (suite au package)
+create public synonym ins_atelier for INS_ATELIER;
 
 --test des différents champs.
 call ins_atelier('Atelier baston', 50);

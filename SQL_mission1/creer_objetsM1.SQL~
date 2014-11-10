@@ -82,14 +82,14 @@ create sequence SEQPAIEMENT
   start with 1;
 create public synonym SEQPAIEMENT for SEQPAIEMENT;
 
-
+/*
 drop sequence  SEQATELIER;
 drop public  synonym SEQATELIER;
 create sequence SEQATELIER
   increment by 1
   start with 1;
 create public synonym SEQATELIER for SEQATELIER;
-
+*/
 
 drop sequence  SEQPARTICIPANT;
 drop public synonym SEQPARTICIPANT;
@@ -871,13 +871,6 @@ drop public synonym vvacation01;
 create or replace view vvacation01 as select idatelier, numero,heuredebut, heurefin 
 from vacation;
 create public synonym vvacation01 for mdl.vvacation01;
-
---Vue permettant d'avoir le theme à partir d'un atelier
-drop public synonym vtheme01;
-create or replace view vtheme01 
-as select idatelier, numero as id, libelletheme as libelle
-from theme;
-create public synonym vtheme01 for mdl.vtheme01;
 -- -----------------------------------------------------------------------------
 --                FIN DE GENERATION
 -- -----------------------------------------------------------------------------

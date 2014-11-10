@@ -1,25 +1,23 @@
 -- -----------------------------------------------------------------------------
---             GÃ©nÃ©ration d'une base de donnÃ©es pour
+--             Génération d'une base de données pour
 --                      Oracle Version 10g XE
 --                        
 -- -----------------------------------------------------------------------------
 --      Projet : MaisonDesLigues
---      Auteur : BenoÃ®t ROCHE
---      Date de derniÃ¨re modification : 19/01/2013 11:32:40
+--      Auteur : Benoît ROCHE
+--      Date de dernière modification : 19/01/2013 11:32:40
 -- -----------------------------------------------------------------------------
 -- -----------------------------------------------------------------------------
---      Script de crÃ©ation des packages 
---				- des packages contenant les procÃ©dures et fonctions stockÃ©es
+--      Script de création des packages 
+--				- des packages contenant les procédures et fonctions stockées
 -- 				- des triggers
 --
---		Ce script doit Ãªtre exÃ©cutÃ© par un l'utilisateur MDL
---		(celui qui vient d'Ãªtre crÃ©Ã© dans le script creer_user)
+--		Ce script doit être exécuté par un l'utilisateur MDL
+--		(celui qui vient d'être créé dans le script creer_user)
 --- -----------------------------------------------------------------------------
 drop public synonym fonctionsdiverses;
 drop public synonym PCKATELIER;
 drop public synonym PCKPARTICIPANT;
-
---VOIR crÃ©ation package "pckCreation" pour donner ensuite les droits Ã  employe mdl(plus simple pour le futur)
 -- -----------------------------------------------------------------------------
 --       PACKAGE fonctionsdiverses
 --------------------------------------------------------------------------------
@@ -36,7 +34,7 @@ is
 end fonctionsdiverses;
 /
 --
---		  fin PACKAGE fonctionsdiverses entÃªte
+--		  fin PACKAGE fonctionsdiverses entête
 --
 --       PACKAGE fonctionsdiverses BODY
 --
@@ -45,7 +43,7 @@ package body fonctionsdiverses
 is
   /*
     cette fonction retourne le premier jour de la manifestation.
-    On peut le rÃ©cupÃ©rer grace Ã  la table benevolat qui contient
+    On peut le récupérer grace à la table benevolat qui contient
     les dates de la amnifestation
   */
   function premierjour return  timestamp
@@ -56,11 +54,11 @@ is
     return lepremierjour;
   exception
     when others then
-      raise_application_error(-20999, 'erreur Ã  la recherche du premier jour');
+      raise_application_error(-20999, 'erreur à la recherche du premier jour');
   end premierjour;
     /*
     cette fonction retourne le dernier jour de la manifestation.
-    On peut le rÃ©cupÃ©rer grace Ã  la table benevolat qui contient
+    On peut le récupérer grace à la table benevolat qui contient
     les dates de la amnifestation
   */
   function dernierjour return  timestamp
@@ -71,7 +69,7 @@ is
     return ledernierjour;
   exception
     when others then
-      raise_application_error(-20999, 'erreur Ã  la recherche du dernier jour');
+      raise_application_error(-20999, 'erreur à la recherche du dernier jour');
   end dernierjour;
   
 function dureevacation return integer
@@ -82,7 +80,7 @@ is
     return vduree;
   exception
     when others then
-      raise_application_error(-20999, 'erreur Ã  la lecture du paramÃ¨tre');
+      raise_application_error(-20999, 'erreur à la lecture du paramètre');
   end dureevacation;
 
 function recuperenbmaxatelier return integer
@@ -93,7 +91,7 @@ is
     return vnb;
   exception
     when others then
-      raise_application_error(-20999, 'erreur Ã  la lecture du paramÃ¨tre');
+      raise_application_error(-20999, 'erreur à la lecture du paramètre');
 end recuperenbmaxatelier;
 
 function newidatelier return integer
@@ -104,7 +102,7 @@ begin
     return vnb+1;
   exception
     when others then
-      raise_application_error(-20999, 'erreur Ã  la lecture du paramÃ¨tre');
+      raise_application_error(-20999, 'erreur à la lecture du paramètre');
 end newidatelier;
 
 
@@ -124,47 +122,47 @@ end fonctionsdiverses;
 create or replace
 package pckatelier
 is
--- dÃ©claration d'un type tableau de chaines de caractÃ¨res 
+-- déclaration d'un type tableau de chaines de caractères 
 type tchaine IS TABLE OF atelier.libelleatelier%type  INDEX BY pls_integer range 0..9;
--- dÃ©claration d'un type tableau de timestamp 
--- on ne s'en est pas servi car C# a du mal Ã  faire passer un tableau DateTime en paramÃ¨tre Ã  une procÃ©dure stockÃ©e qui 
+-- déclaration d'un type tableau de timestamp 
+-- on ne s'en est pas servi car C# a du mal à faire passer un tableau DateTime en paramètre à une procédure stockée qui 
 -- attend des timestamp. On laisse pour la V2
 type tdateheure IS TABLE OF VACATION.HEUREDEBUT%type  INDEX BY pls_integer range 0..9;
 /*
-ProcÃ©dure qui va crÃ©er un atelier avec des thÃ¨mes et des vacations passÃ©s en paramÃ¨tre.
-A la crÃ©ation d'un atelier, on doit obligatoirement passer  un thÃ¨me et une vacation
-pour respecter le modÃ¨le de donnÃ©es fourni (voir cardinalitÃ©s 1,n)
+Procédure qui va créer un atelier avec des thèmes et des vacations passés en paramètre.
+A la création d'un atelier, on doit obligatoirement passer  un thème et une vacation
+pour respecter le modèle de données fourni (voir cardinalités 1,n)
 */
 procedure creerAtelier(plibelleatelier varchar ,pnbplacesmaxi atelier.NBPLACESMAXI%type, plesthemes tchaine, plesvacationsdebut tchaine, plesvacationsfin tchaine  );
 /*
-procÃ©dure permettant d'ajouter un thÃ¨me Ã  un atelier dont l'id est fourni en paramÃ¨tre
-Le numÃ©ro du thÃ¨me pour cet atelier est calculÃ© Ã  ce niveau lÃ .
-On gÃ¨re les remontÃ©s d'exception
+procédure permettant d'ajouter un thème à un atelier dont l'id est fourni en paramètre
+Le numéro du thème pour cet atelier est calculé à ce niveau là.
+On gère les remontés d'exception
 */
 procedure ajouttheme(pidAtelier atelier.id%type, plibelle theme.libelletheme%type);
 /*
-procÃ©dure permettant d'ajouter une vacation Ã  un atelier dont l'id est passÃ© en paramÃ¨re
-Le numÃ©ro de la vacation pour cet atelier est calculÃ© Ã  ce niveau lÃ .
-L'ordre d'insertion de la vacation va controler que la vacation ne chevauche pas une autre vacation du mÃªme atelier
-On gÃ¨re les remontÃ©s d'exception
+procédure permettant d'ajouter une vacation à un atelier dont l'id est passé en paramère
+Le numéro de la vacation pour cet atelier est calculé à ce niveau là.
+L'ordre d'insertion de la vacation va controler que la vacation ne chevauche pas une autre vacation du même atelier
+On gère les remontés d'exception
 */
 procedure ajoutvacation(pidAtelier atelier.id%type,pheuredebut vacation.heuredebut%type ,pheurefin vacation.heurefin%type );
 /*
-procedure qui va ajouter les thÃ¨mes passÃ©s en paramÃ¨tre Ã  l'atelier dont l'id est passÃ© en paramÃ¨tre.
-Cette procÃ©dure va boucler sur les thÃ¨mes passÃ©s en paramÃ¨tre et appeler pour chacun la procÃ©dure ajouttheme
-On gÃ¨re les remontÃ©s d'exception. 
+procedure qui va ajouter les thèmes passés en paramètre à l'atelier dont l'id est passé en paramètre.
+Cette procédure va boucler sur les thèmes passés en paramètre et appeler pour chacun la procédure ajouttheme
+On gère les remontés d'exception. 
 */
 procedure completethemeatelier(pidatelier atelier.id%type, plesthemes tchaine);
 /*
-procedure qui va ajouter les vacations passÃ©es en paramÃ¨tre Ã  l'atelier dont l'id est passÃ© en paramÃ¨tre.
-Cette procÃ©dure va boucler sur les vacations passÃ©s en paramÃ¨tre et appeler pour chacun la procÃ©dure ajoutvacation
-On gÃ¨re les remontÃ©s d'exception. 
+procedure qui va ajouter les vacations passées en paramètre à l'atelier dont l'id est passé en paramètre.
+Cette procédure va boucler sur les vacations passés en paramètre et appeler pour chacun la procédure ajoutvacation
+On gère les remontés d'exception. 
 */
 procedure completevacationatelier(pidatelier atelier.id%type, plesvacationsdebut tchaine,plesvacationsfin tchaine );
 /*
-procÃ©dure qui va aller mettre Ã  jour les vacations contenues dans la chaine passÃ©e en paramÃ¨tre, pour l'atelier
-passÃ© aussi en rÃ©fÃ©rence
-On gÃ¨re les remontÃ©s d'exception. 
+procédure qui va aller mettre à jour les vacations contenues dans la chaine passée en paramètre, pour l'atelier
+passé aussi en référence
+On gère les remontés d'exception. 
 */
 procedure modificationvacations(plesdatesdebut tchaine, plesdatesfin tchaine , pidatelier vacation.idatelier%type);
 
@@ -176,7 +174,7 @@ end pckatelier;
 
 /
 --
---		  fin PACKAGE PCKATELIER entÃªte
+--		  fin PACKAGE PCKATELIER entête
 --
 --       PACKAGE PCKATELIER BODY
 --
@@ -184,9 +182,9 @@ create or replace
 package body pckatelier
 is
 /*
-ProcÃ©dure qui va crÃ©er un atelier avec des thÃ¨mes et des vacations passÃ©s en paramÃ¨tre.
-A la crÃ©ation d'un atelier, on doit obligatoirement passer  un thÃ¨me et une vacation
-pour respecter le modÃ¨le de donnÃ©es fourni (voir cardinalitÃ©s 1,n)
+Procédure qui va créer un atelier avec des thèmes et des vacations passés en paramètre.
+A la création d'un atelier, on doit obligatoirement passer  un thème et une vacation
+pour respecter le modèle de données fourni (voir cardinalités 1,n)
 */
 procedure creerAtelier(plibelleatelier varchar ,pnbplacesmaxi atelier.NBPLACESMAXI%type,   plesthemes tchaine, plesvacationsdebut tchaine, plesvacationsfin tchaine )
 is 
@@ -202,7 +200,7 @@ pragma exception_init (erreurvacation, -20202);
 pragma exception_init (tropdatelier,-20204);
 Begin
   --select SEQATELIER.NEXTVAL into newid from dual;
-  -- rÃ©cupÃ©ration de l'id atelier Ã  crÃ©er
+  -- récupération de l'id atelier à créer
   select fonctionsdiverses.newidatelier into newid from dual;
   insert into atelier(id, LIBELLEATELIER,NBPLACESMAXI)   
   values (newid, plibelleatelier,pnbplacesmaxi);
@@ -220,20 +218,20 @@ Begin
     
 exception
   when erreurtheme then
-    raise_application_error(-20201, 'Erreur Ã  l''insertion du thÃ¨me');
+    raise_application_error(-20201, 'Erreur à l''insertion du thème');
   when erreurvacation then
-    raise_application_error(-20202, 'Erreur Ã  l''insertion d''une vacation');  
+    raise_application_error(-20202, 'Erreur à l''insertion d''une vacation');  
   when tropdatelier then
     raise_application_error(-20205, 'Il ne peut y avoir plus de 6 ateliers');
   when memetemps then
-    raise_application_error(-20203, 'Deux vacations d''un mÃªme atelier ne peuvent avoir lieu en mÃªme temps');
+    raise_application_error(-20203, 'Deux vacations d''un même atelier ne peuvent avoir lieu en même temps');
   when others then
   raise_application_error(-20999, sqlerrm);
 end  creerAtelier;
 /*
-procÃ©dure permettant d'ajouter un thÃ¨me Ã  un atelier dont l'id est fourni en paramÃ¨tre
-Le numÃ©ro du thÃ¨me pour cet atelier est calculÃ© Ã  ce niveau lÃ .
-On gÃ¨re les remontÃ©s d'exception
+procédure permettant d'ajouter un thème à un atelier dont l'id est fourni en paramètre
+Le numéro du thème pour cet atelier est calculé à ce niveau là.
+On gère les remontés d'exception
 */
 procedure ajouttheme(pidAtelier atelier.id%type, plibelle theme.libelletheme%type)
 is
@@ -242,13 +240,13 @@ begin
   select coalesce(max(numero)+1, 1) into nb from theme where idatelier=pidAtelier;  
   insert into theme (idatelier, numero, libelletheme) values (pidAtelier,nb, plibelle);
 exception
-  when others then raise_application_error(-20201, 'Erreur Ã  l''insertion du thÃ¨me');  
+  when others then raise_application_error(-20201, 'Erreur à l''insertion du thème');  
 end ajouttheme;
 /*
-procÃ©dure permettant d'ajouter une vacation Ã  un atelier dont l'id est passÃ© en paramÃ¨re
-Le numÃ©ro de la vacation pour cet atelier est calculÃ© Ã  ce niveau lÃ .
-L'ordre d'insertion de la vacation va controler que la vacation ne chevauche pas une autre vacation du mÃªme atelier
-On gÃ¨re les remontÃ©s d'exception
+procédure permettant d'ajouter une vacation à un atelier dont l'id est passé en paramère
+Le numéro de la vacation pour cet atelier est calculé à ce niveau là.
+L'ordre d'insertion de la vacation va controler que la vacation ne chevauche pas une autre vacation du même atelier
+On gère les remontés d'exception
 */
 procedure ajoutvacation(pidAtelier atelier.id%type,pheuredebut vacation.heuredebut%type ,pheurefin vacation.heurefin%type)
 is
@@ -260,14 +258,14 @@ begin
   insert into vacation(idatelier,numero,heuredebut, heurefin) values (pidAtelier, nb,pheuredebut  ,pheurefin);
 exception
   when memetemps then
-    raise_application_error(-20203, 'Deux vacations d''un mÃªme atelier ne peuvent avoir lieu en mÃªme temps');
+    raise_application_error(-20203, 'Deux vacations d''un même atelier ne peuvent avoir lieu en même temps');
   when others 
-    then raise_application_error(-20202, 'Erreur Ã  l''insertion d''une vacation');  
+    then raise_application_error(-20202, 'Erreur à l''insertion d''une vacation');  
 end ajoutvacation;
 /*
-procedure qui va ajouter les thÃ¨mes passÃ©s en paramÃ¨tre Ã  l'atelier dont l'id est passÃ© en paramÃ¨tre.
-Cette procÃ©dure va boucler sur les thÃ¨mes passÃ©s en paramÃ¨tre et appeler pour chacun la procÃ©dure ajouttheme
-On gÃ¨re les remontÃ©s d'exception. 
+procedure qui va ajouter les thèmes passés en paramètre à l'atelier dont l'id est passé en paramètre.
+Cette procédure va boucler sur les thèmes passés en paramètre et appeler pour chacun la procédure ajouttheme
+On gère les remontés d'exception. 
 */
 procedure completethemeatelier(pidatelier atelier.id%type, plesthemes tchaine)
 is
@@ -280,15 +278,15 @@ begin
     END LOOP;
 exception
   when erreurtheme then
-    raise_application_error(-20201, 'Erreur Ã  l''insertion du thÃ¨me');
+    raise_application_error(-20201, 'Erreur à l''insertion du thème');
   when others then
   raise_application_error(-20999, sqlerrm);
 end;
 
 /*
-procedure qui va ajouter les vacations passÃ©es en paramÃ¨tre Ã  l'atelier dont l'id est passÃ© en paramÃ¨tre.
-Cette procÃ©dure va boucler sur les vacations passÃ©s en paramÃ¨tre et appeler pour chacun la procÃ©dure ajoutvacation
-On gÃ¨re les remontÃ©s d'exception. 
+procedure qui va ajouter les vacations passées en paramètre à l'atelier dont l'id est passé en paramètre.
+Cette procédure va boucler sur les vacations passés en paramètre et appeler pour chacun la procédure ajoutvacation
+On gère les remontés d'exception. 
 */
 procedure completevacationatelier(pidatelier atelier.id%type, plesvacationsdebut tchaine, plesvacationsfin tchaine)
 is
@@ -304,17 +302,17 @@ begin
     END LOOP  ;
 exception
    when memetemps then
-    raise_application_error(-20203, 'Deux vacations d''un mÃªme atelier ne peuvent avoir lieu en mÃªme temps');
+    raise_application_error(-20203, 'Deux vacations d''un même atelier ne peuvent avoir lieu en même temps');
   when erreurvacation then
-    raise_application_error(-20202, 'Erreur Ã  l''insertion d''une vacation');     
+    raise_application_error(-20202, 'Erreur à l''insertion d''une vacation');     
   when others then
     raise_application_error(-20999, sqlerrm);
 end;
 
 /*
-procÃ©dure privÃ©e du package permettant de modifier la date et l'heure d'une vacation d'un atelier 
-Le trigger qui vÃ©rifiera que les vacations d'un mÃªme atelier ne se dÃ©clenchera pas sur le update (problÃ¨me table mutante)
-pour la vÃ©rification, on a Ã©crit un trigger par ordre after le update. C'est trÃ¨s lourd, mais il y aura trÃ¨s peu de modifications.
+procédure privée du package permettant de modifier la date et l'heure d'une vacation d'un atelier 
+Le trigger qui vérifiera que les vacations d'un même atelier ne se déclenchera pas sur le update (problème table mutante)
+pour la vérification, on a écrit un trigger par ordre after le update. C'est très lourd, mais il y aura très peu de modifications.
 */
 procedure modificationunevacation(pidatelier vacation.idatelier%type, pnumero vacation.numero%type,pheured vacation.heuredebut%type,pheuref vacation.heurefin%type)
 is
@@ -328,15 +326,15 @@ begin
   commit;
  exception 
   when memetemps then
-    raise_application_error(-20203, 'Deux vacations d''un mÃªme atelier ne peuvent avoir lieu en mÃªme temps');
+    raise_application_error(-20203, 'Deux vacations d''un même atelier ne peuvent avoir lieu en même temps');
   when others then
-    raise_application_error(-20202, 'Erreur Ã  la mise Ã  jour d''une vacation'); 
+    raise_application_error(-20202, 'Erreur à la mise à jour d''une vacation'); 
 end modificationunevacation;
 
 /*
-procÃ©dure qui va aller mettre Ã  jour les vacations contenues dans la chaine passÃ©e en paramÃ¨tre, pour l'atelier
-passÃ© aussi en rÃ©fÃ©rence
-On gÃ¨re les remontÃ©s d'exception. 
+procédure qui va aller mettre à jour les vacations contenues dans la chaine passée en paramètre, pour l'atelier
+passé aussi en référence
+On gère les remontés d'exception. 
 */
 procedure modificationvacations(plesdatesdebut tchaine, plesdatesfin tchaine , pidatelier vacation.idatelier%type)
 is
@@ -348,7 +346,7 @@ begin
     END LOOP ;
 Exception
    when memetemps then
-    raise_application_error(-20203, 'Deux vacations d''un mÃªme atelier ne peuvent avoir lieu en mÃªme temps');
+    raise_application_error(-20203, 'Deux vacations d''un même atelier ne peuvent avoir lieu en même temps');
   when others then
     raise_application_error(-20202, sqlerrm);
 end modificationvacations;
@@ -443,7 +441,7 @@ procedure ENREGISTREPAIEMENT(
 end pckparticipant;
 /
 --
---		  fin PACKAGE PCKPARTICIPANT entÃªte
+--		  fin PACKAGE PCKPARTICIPANT entête
 --
 --       PACKAGE PCKPARTICIPANT BODY
 --
@@ -452,14 +450,14 @@ package body pckparticipant
 is
 erreur exception;
 /*
-  CrÃ©ation d'une procÃ©dure privÃ©e qui va paermetre d'insÃ©rer une ligne dans la table participant
-  Cette procÃ©dure est appelÃ©e par las procÃ©dures :
+  Création d'une procédure privée qui va paermetre d'insérer une ligne dans la table participant
+  Cette procédure est appelée par las procédures :
   -nouveaubenevole,
-  -nouveaulicenciÃ©,
+  -nouveaulicencié,
   -nouveauintervenant
-  - le paramÃ¨tre newid est un paramÃ¨tre out pour renvoyer Ã  la procÃ©dure appelante 
-  l'id du participant crÃ©Ã©. Cela Ã©vie dans les procÃ©dures appemantes d'avoir accÃ¨s Ã  la sesxxx.currval, car le currval ramenÃ© pourrait
-  Ãªtre diffÃ©rent de l'id du participant si qq a entre temps crÃ©Ã© un nouveau participant
+  - le paramètre newid est un paramètre out pour renvoyer à la procédure appelante 
+  l'id du participant créé. Cela évie dans les procédures appemantes d'avoir accès à la sesxxx.currval, car le currval ramené pourrait
+  être différent de l'id du participant si qq a entre temps créé un nouveau participant
 */
   procedure creerparticipant(
   pNom participant.nomparticipant%type,
@@ -478,20 +476,20 @@ erreur exception;
         newid:=seqparticipant.currval;  
 Exception
   when others then
-    raise_application_error(-20100, 'Erreur Ã  la crÃ©ation du participant ');
+    raise_application_error(-20100, 'Erreur à la création du participant ');
 end creerparticipant;
  
  /*
- La procÃ©dure NOUVEAULICENCIE va 
- 1- crÃ©er un nouveau participant en appelent la procÃ©dure creerparticipant
- 2- crÃ©er un enregistrement dans la table licenciÃ©
- 3- enregistrer le paiement, OBLIGATOIRE Ã  ce moment lÃ .
- Ce paiement peut Ãªtre ici : inscription ou tout
+ La procédure NOUVEAULICENCIE va 
+ 1- créer un nouveau participant en appelent la procédure creerparticipant
+ 2- créer un enregistrement dans la table licencié
+ 3- enregistrer le paiement, OBLIGATOIRE à ce moment là.
+ Ce paiement peut être ici : inscription ou tout
  */
  /*
-procÃ©dure privÃ©e quii va inscrire un intervenant dans la table intervenant.
-L'insertion dÃ©clenchera un trigger qui vÃ©rifiera si l'intervenant est animateur pour l'atelier choisi, 
-et donc qu'il n'y a pas dÃ©jÃ  un animateur pour cet atelier
+procédure privée quii va inscrire un intervenant dans la table intervenant.
+L'insertion déclenchera un trigger qui vérifiera si l'intervenant est animateur pour l'atelier choisi, 
+et donc qu'il n'y a pas déjà un animateur pour cet atelier
 */
 procedure creerintervenant(pidatelier atelier.id%type, pstatutintervenant statut.id%type, newid participant.id%type )
 is
@@ -501,9 +499,9 @@ begin
     insert into intervenant(idintervenant, idatelier, idstatut) values(newid,pidatelier,pstatutintervenant);
 Exception
     when dejaanimateur then
-      raise_application_error(-20112 ,'cet atelier a dÃ©jÃ  son animateur, inscription impossible');
+      raise_application_error(-20112 ,'cet atelier a déjà son animateur, inscription impossible');
     when others then
-      raise_application_error(-20102, 'Erreur Ã  la crÃ©ation de l''intervenant');
+      raise_application_error(-20102, 'Erreur à la création de l''intervenant');
 end;
 
 procedure creercontenuhebergement(plescategories tchars1, pleshotels tchars4, plesnuits tids, newid participant.id%type)
@@ -518,7 +516,7 @@ begin
   END LOOP;
 Exception
    when others then
-      raise_application_error(-20104, 'Erreur Ã  la crÃ©ation du contenu de l''hÃ©bergement');  
+      raise_application_error(-20104, 'Erreur à la création du contenu de l''hébergement');  
 end creercontenuhebergement;
 /*
 
@@ -558,15 +556,15 @@ end creercontenuhebergement;
 
   exception
     when tropdateliers then
-      raise_application_error(-20001 , 'Inscription impossible, nombre d''ateliers limitÃ© Ã  5');
+      raise_application_error(-20001 , 'Inscription impossible, nombre d''ateliers limité à 5');
     when errparticipant then
-      raise_application_error(-20100 , 'Erreur Ã  la crÃ©ation du participant ');
+      raise_application_error(-20100 , 'Erreur à la création du participant ');
     when others then
-      raise_application_error(-20103, 'erreur Ã  la crÃ©ation du licencie ');        
+      raise_application_error(-20103, 'erreur à la création du licencie ');        
   end;
  /*
- La procÃ©dure ENREGISTREPAIEMENT va enregistrer le paiement d'un congressiste.
- Elle peut Ãªtre appelÃ©e par la procÃ©dure NOUVEAULICENCIE dans le cas de l'inscription d'un licenciÃ©
+ La procédure ENREGISTREPAIEMENT va enregistrer le paiement d'un congressiste.
+ Elle peut être appelée par la procédure NOUVEAULICENCIE dans le cas de l'inscription d'un licencié
  ou encore directement du programme pour l'enregistrement d'un accompagnant.
  */
   
@@ -588,9 +586,9 @@ end creercontenuhebergement;
       values(newid, pLicence, pdatenaiss);
   EXCEPTION
     when benevdejainscrit then
-      raise_application_error(-20110 , 'bÃ©nÃ©vole dÃ©jÃ  inscrit, vous devez faire une modification de bÃ©nÃ©vole');
+      raise_application_error(-20110 , 'bénévole déjà inscrit, vous devez faire une modification de bénévole');
     when others then
-      raise_application_error(-20101 , 'Erreur Ã  la crÃ©ation du bÃ©nÃ©vole');
+      raise_application_error(-20101 , 'Erreur à la création du bénévole');
   end;
   
   procedure creeretrepresent(pLesdates tids, newid participant.id%type)
@@ -602,7 +600,7 @@ end creercontenuhebergement;
     END LOOP;
   EXCEPTION
     when others then
-      raise_application_error(-20105 , 'Erreur Ã  la crÃ©ation des prÃ©sences du bÃ©nÃ©vole');
+      raise_application_error(-20105 , 'Erreur à la création des présences du bénévole');
   end creeretrepresent;
   
   procedure NOUVEAUBENEVOLE( 
@@ -634,18 +632,18 @@ end creercontenuhebergement;
     creeretrepresent(pLesdates, newid);
   exception
       when errparticipant then
-        raise_application_error(-20100 , 'Erreur Ã  la crÃ©ation du participant ');
+        raise_application_error(-20100 , 'Erreur à la création du participant ');
       when benevdejainscrit then
-        raise_application_error(-20110 , 'bÃ©nÃ©vole dÃ©jÃ  inscrit, \n vous devez faire une modification de bÃ©nÃ©vole');
+        raise_application_error(-20110 , 'bénévole déjà inscrit, \n vous devez faire une modification de bénévole');
       when erreurbenevole then
-        raise_application_error(-20101 , 'Erreur Ã  la crÃ©ation du benevole ');
+        raise_application_error(-20101 , 'Erreur à la création du benevole ');
       when others then
-        raise_application_error(-20202, 'erreur inattendue lors de la crÃ©ation d''un bÃ©nÃ©vole');  
+        raise_application_error(-20202, 'erreur inattendue lors de la création d''un bénévole');  
 end;
 
 
 /*
-ProcÃ©dure qui inscrit un intervenant sans nuitÃ©
+Procédure qui inscrit un intervenant sans nuité
 */
 procedure NOUVELINTERVENANT(
   pNom participant.nomparticipant%type,
@@ -672,20 +670,20 @@ procedure NOUVELINTERVENANT(
     creerintervenant(pidatelier,pstatutintervenant, newid);  
 exception
     when erreurparticipant then
-      raise_application_error(-20100, 'erreur Ã  la crÃ©ation du participant');
+      raise_application_error(-20100, 'erreur à la création du participant');
     when erreurintervenant then
-      raise_application_error(-20102, 'erreur Ã  la crÃ©ation de l''intervenant ');
+      raise_application_error(-20102, 'erreur à la création de l''intervenant ');
     when dejaanimateur then
-      raise_application_error(-20112,'cet atelier a dÃ©jÃ  son animateur, inscription impossible');
+      raise_application_error(-20112,'cet atelier a déjà son animateur, inscription impossible');
     when others then
-      raise_application_error(-20203, 'Autre erreur innattendue lors de la crÃ©ation d''un intervenant');
+      raise_application_error(-20203, 'Autre erreur innattendue lors de la création d''un intervenant');
   end;
 
 
 
 /*
-ProcÃ©dure qui inscrit un intervenant avec nuitÃ©
-Cette procÃ©dure va faire appel Ã  la procÃ©dure surchargÃ©e NOUVELINTERVENANT
+Procédure qui inscrit un intervenant avec nuité
+Cette procédure va faire appel à la procédure surchargée NOUVELINTERVENANT
 */
 procedure NOUVELINTERVENANT(
   pNom participant.nomparticipant%type,
@@ -718,15 +716,15 @@ procedure NOUVELINTERVENANT(
     creercontenuhebergement(plescategories,pleshotels,plesnuits, newid);
 exception
     when erreurparticipant then
-      raise_application_error(-20100, 'erreur Ã  la crÃ©ation du participant');
+      raise_application_error(-20100, 'erreur à la création du participant');
     when erreurintervenant then
-      raise_application_error(-20102, 'erreur Ã  la crÃ©ation de l''intervenant ');
+      raise_application_error(-20102, 'erreur à la création de l''intervenant ');
     when erreurcontenuhebergement then
-      raise_application_error(-20104,'Erreur Ã  la crÃ©ation du contenu de l''hÃ©bergement');
+      raise_application_error(-20104,'Erreur à la création du contenu de l''hébergement');
     when dejaanimateur then
-      raise_application_error(-20112,'cet atelier a dÃ©jÃ  son animateur, inscription impossible');
+      raise_application_error(-20112,'cet atelier a déjà son animateur, inscription impossible');
     when others then
-      raise_application_error(-20203, 'Autre erreur innattendue lors de la crÃ©ation d''un intervenant');
+      raise_application_error(-20203, 'Autre erreur innattendue lors de la création d''un intervenant');
   end;
 
 end pckparticipant;
@@ -743,7 +741,7 @@ end pckparticipant;
 
 --
 -- -----------------------------------------------------------------------------
---       CrÃ©ation des synonymes publics pour masquer Ã  l'utilisateur le schÃ©ma d'appartenance
+--       Création des synonymes publics pour masquer à l'utilisateur le schéma d'appartenance
 --------------------------------------------------------------------------------
 create public synonym fonctionsdiverses for mdl.fonctionsdiverses;
 create public synonym pckatelier for mdl.pckatelier;

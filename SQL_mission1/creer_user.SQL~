@@ -1,22 +1,22 @@
 -- -----------------------------------------------------------------------------
---             GÃ©nÃ©ration d'une base de donnÃ©es pour
+--             Génération d'une base de données pour
 --                      Oracle Version 11g XE
 --                        
 -- -----------------------------------------------------------------------------
 --      Projet : MaisonDesLigues
---      Auteur : BenoÃ®t ROCHE
---      Date de derniÃ¨re modification : 9/01/2013 11:32:40
+--      Auteur : Benoît ROCHE
+--      Date de dernière modification : 9/01/2013 11:32:40
 -- -----------------------------------------------------------------------------
 
 -- -----------------------------------------------------------------------------
---      Partie 1: CrÃ©ation de l'utilisateur MDL qui sera aussi le propriÃ©taire
--- 		des objets : tables, index, procÃ©dures
+--      Partie 1: Création de l'utilisateur MDL qui sera aussi le propriétaire
+-- 		des objets : tables, index, procédures
 --		
---		Ce script doit Ãªtre exÃ©cutÃ© par un utilisateur possÃ©dant le droit de crÃ©er un utilisateur.
+--		Ce script doit être exécuté par un utilisateur possédant le droit de créer un utilisateur.
 --		Par exemple l'utilisateur SYSTEM
 -- -----------------------------------------------------------------------------
 --
---      On commence par supprimer l'utilisateur avant de le recrÃ©er
+--      On commence par supprimer l'utilisateur avant de le recréer
 -- -
 -- 
 drop user MDL cascade ;
