@@ -120,7 +120,7 @@
             this.TabInscription.Location = new System.Drawing.Point(4, 22);
             this.TabInscription.Name = "TabInscription";
             this.TabInscription.Padding = new System.Windows.Forms.Padding(3);
-            this.TabInscription.Size = new System.Drawing.Size(956, 579);
+            this.TabInscription.Size = new System.Drawing.Size(1137, 579);
             this.TabInscription.TabIndex = 0;
             this.TabInscription.Text = "Inscription";
             this.TabInscription.UseVisualStyleBackColor = true;
@@ -133,9 +133,9 @@
             this.GrpBenevole.Controls.Add(this.lblDdn);
             this.GrpBenevole.Controls.Add(this.lblNumLicence);
             this.GrpBenevole.Controls.Add(this.TxtDateNaissance);
-            this.GrpBenevole.Location = new System.Drawing.Point(607, 23);
+            this.GrpBenevole.Location = new System.Drawing.Point(654, 19);
             this.GrpBenevole.Name = "GrpBenevole";
-            this.GrpBenevole.Size = new System.Drawing.Size(564, 174);
+            this.GrpBenevole.Size = new System.Drawing.Size(473, 174);
             this.GrpBenevole.TabIndex = 23;
             this.GrpBenevole.TabStop = false;
             this.GrpBenevole.Text = "Disponibilités Bénévole";
@@ -518,7 +518,7 @@
             this.TabPrincipal.Location = new System.Drawing.Point(0, 0);
             this.TabPrincipal.Name = "TabPrincipal";
             this.TabPrincipal.SelectedIndex = 0;
-            this.TabPrincipal.Size = new System.Drawing.Size(964, 605);
+            this.TabPrincipal.Size = new System.Drawing.Size(1145, 605);
             this.TabPrincipal.TabIndex = 0;
             // 
             // tabAjoutModif
@@ -551,9 +551,9 @@
             this.grpTheme.Controls.Add(this.btnEnregistrerTheme);
             this.grpTheme.Controls.Add(this.txttheme);
             this.grpTheme.Controls.Add(this.lblThemeNom);
-            this.grpTheme.Location = new System.Drawing.Point(138, 120);
+            this.grpTheme.Location = new System.Drawing.Point(138, 122);
             this.grpTheme.Name = "grpTheme";
-            this.grpTheme.Size = new System.Drawing.Size(556, 151);
+            this.grpTheme.Size = new System.Drawing.Size(599, 151);
             this.grpTheme.TabIndex = 3;
             this.grpTheme.TabStop = false;
             this.grpTheme.Text = "Ajouter un theme";
@@ -584,6 +584,7 @@
             this.btnEnregistrerTheme.TabIndex = 3;
             this.btnEnregistrerTheme.Text = "Ajouter";
             this.btnEnregistrerTheme.UseVisualStyleBackColor = true;
+            this.btnEnregistrerTheme.Click += new System.EventHandler(this.btnEnregistrerTheme_Click);
             // 
             // txttheme
             // 
@@ -687,7 +688,7 @@
             this.grpVacation.Controls.Add(this.btnEnregistrerVacation);
             this.grpVacation.Controls.Add(this.lblDateFinVacation);
             this.grpVacation.Controls.Add(this.lblDateDebutVacation);
-            this.grpVacation.Location = new System.Drawing.Point(138, 120);
+            this.grpVacation.Location = new System.Drawing.Point(138, 122);
             this.grpVacation.Name = "grpVacation";
             this.grpVacation.Size = new System.Drawing.Size(599, 180);
             this.grpVacation.TabIndex = 4;
@@ -780,7 +781,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(964, 605);
+            this.ClientSize = new System.Drawing.Size(1145, 605);
             this.Controls.Add(this.TabPrincipal);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmPrincipale";

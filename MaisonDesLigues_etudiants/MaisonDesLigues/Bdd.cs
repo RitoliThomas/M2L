@@ -411,5 +411,26 @@ namespace BaseDeDonnees
 
         }
 
+        public void CreerTheme(Int32 pIdAtelier, String pLibelleTheme)
+        {
+            try
+            {
+                UneOracleCommand = new OracleCommand("ins_theme", CnOracle);
+                UneOracleCommand.CommandType = CommandType.StoredProcedure;
+                UneOracleCommand.Parameters.Add("pIdAtelier", OracleDbType.Int32, ParameterDirection.Input).Value = pIdAtelier;
+                UneOracleCommand.Parameters.Add("pLibelleTheme", OracleDbType.Varchar2, ParameterDirection.Input).Value = pLibelleTheme;
+                UneOracleCommand.ExecuteNonQuery();
+                MessageBox.Show("Thème créé !");
+            }
+            catch (OracleException Oex)
+            {
+                MessageBox.Show("Erreur Oracle \n" + Oex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Autre Erreur  \n" + ex.Message);
+            }
+        }
+
     }
 }

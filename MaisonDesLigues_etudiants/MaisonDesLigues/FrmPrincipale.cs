@@ -360,6 +360,11 @@ namespace MaisonDesLigues
             UneConnexion.CreerAtelier(txtAtelierNom.Text, Convert.ToInt32(numAtelierNbPlace.Value));
         }
 
+        private void btnEnregistrerTheme_Click(object sender, EventArgs e)
+        {
+            UneConnexion.CreerTheme(Convert.ToInt32(cmbThemeAtelier.SelectedValue), txttheme.Text);
+        }
+
 
 
 

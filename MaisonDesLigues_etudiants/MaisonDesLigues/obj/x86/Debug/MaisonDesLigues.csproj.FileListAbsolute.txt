@@ -66,3 +66,15 @@ C:\Users\Fainec\Desktop\PPE M2L Kilian\MaisonDesLigues\obj\x86\Debug\MaisonDesLi
 C:\Users\Fainec\Desktop\PPE M2L Kilian\MaisonDesLigues\obj\x86\Debug\MaisonDesLigues.FrmPrincipale.resources
 C:\Users\Fainec\Desktop\PPE M2L Kilian\MaisonDesLigues\obj\x86\Debug\MaisonDesLigues.Properties.Resources.resources
 C:\Users\Fainec\Desktop\PPE M2L Kilian\MaisonDesLigues\obj\x86\Debug\MaisonDesLigues.csproj.GenerateResource.Cache
+C:\Users\ritoli.t\Documents\M2L\M2L\MaisonDesLigues_etudiants\MaisonDesLigues\bin\Debug\MaisonDesLigues.exe.config
+C:\Users\ritoli.t\Documents\M2L\M2L\MaisonDesLigues_etudiants\MaisonDesLigues\obj\x86\Debug\MaisonDesLigues.exe
+C:\Users\ritoli.t\Documents\M2L\M2L\MaisonDesLigues_etudiants\MaisonDesLigues\obj\x86\Debug\MaisonDesLigues.pdb
+C:\Users\ritoli.t\Documents\M2L\M2L\MaisonDesLigues_etudiants\MaisonDesLigues\bin\Debug\MaisonDesLigues.exe
+C:\Users\ritoli.t\Documents\M2L\M2L\MaisonDesLigues_etudiants\MaisonDesLigues\bin\Debug\MaisonDesLigues.pdb
+C:\Users\ritoli.t\Documents\M2L\M2L\MaisonDesLigues_etudiants\MaisonDesLigues\bin\Debug\ComposantNuite.dll
+C:\Users\ritoli.t\Documents\M2L\M2L\MaisonDesLigues_etudiants\MaisonDesLigues\bin\Debug\ComposantNuite.pdb
+C:\Users\ritoli.t\Documents\M2L\M2L\MaisonDesLigues_etudiants\MaisonDesLigues\obj\x86\Debug\MaisonDesLigues.csprojResolveAssemblyReference.cache
+C:\Users\ritoli.t\Documents\M2L\M2L\MaisonDesLigues_etudiants\MaisonDesLigues\obj\x86\Debug\MaisonDesLigues.FrmLogin.resources
+C:\Users\ritoli.t\Documents\M2L\M2L\MaisonDesLigues_etudiants\MaisonDesLigues\obj\x86\Debug\MaisonDesLigues.FrmPrincipale.resources
+C:\Users\ritoli.t\Documents\M2L\M2L\MaisonDesLigues_etudiants\MaisonDesLigues\obj\x86\Debug\MaisonDesLigues.Properties.Resources.resources
+C:\Users\ritoli.t\Documents\M2L\M2L\MaisonDesLigues_etudiants\MaisonDesLigues\obj\x86\Debug\MaisonDesLigues.csproj.GenerateResource.Cache
