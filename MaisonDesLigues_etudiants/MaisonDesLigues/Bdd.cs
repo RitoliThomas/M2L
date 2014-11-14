@@ -432,5 +432,28 @@ namespace BaseDeDonnees
             }
         }
 
+        public void CreerVacation(String pIdAtelier, DateTime pDateDebut, DateTime pDateFin)
+        {
+            try
+            {
+                UneOracleCommand = new OracleCommand("ins_vacation", CnOracle);
+                UneOracleCommand.CommandType = CommandType.StoredProcedure;
+                UneOracleCommand.Parameters.Add("pIdAtelier", OracleDbType.Int32, ParameterDirection.Input).Value = pIdAtelier;
+                UneOracleCommand.Parameters.Add("pNumero", OracleDbType.Int32, ParameterDirection.Input).Value = 3;
+                UneOracleCommand.Parameters.Add("pHeureDebut", OracleDbType.Date, ParameterDirection.Input).Value = pDateDebut;
+                UneOracleCommand.Parameters.Add("pHeureFin", OracleDbType.Date, ParameterDirection.Input).Value = pDateFin;
+                UneOracleCommand.ExecuteNonQuery();
+                MessageBox.Show("Vacation créée !");
+            }
+            catch (OracleException Oex)
+            {
+                MessageBox.Show("Erreur Oracle \n" + Oex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Autre Erreur  \n" + ex.Message);
+            }
+        }
+
     }
 }
