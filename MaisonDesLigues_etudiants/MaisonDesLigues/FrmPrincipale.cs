@@ -365,9 +365,22 @@ namespace MaisonDesLigues
             UneConnexion.CreerTheme(Convert.ToInt32(cmbThemeAtelier.SelectedValue), txttheme.Text);
         }
 
+        private void btnEnregistrerVacation_Click(object sender, EventArgs e)
+        {
+            String dated = "";
+            String datef = "";
 
+            for (int i = 5 ; i < dateDebut.Text.Length ; i++)
+            {
+                dated += dateDebut.Text[i];
+                datef += dateFin.Text[i];
+            }
 
+            DateTime dateDebutConverted = Convert.ToDateTime(dated);
+            DateTime dateFinConverted = Convert.ToDateTime(datef);
 
+            UneConnexion.CreerVacation(Convert.ToString(cmbVacationAtelier.SelectedValue), dateDebutConverted, dateFinConverted);
+        }
 
         ///// <summary>
         ///// 
@@ -378,23 +391,6 @@ namespace MaisonDesLigues
         //{
 
         //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 }
