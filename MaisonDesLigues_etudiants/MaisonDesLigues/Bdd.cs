@@ -432,14 +432,14 @@ namespace BaseDeDonnees
             }
         }
 
-        public void CreerVacation(String pIdAtelier, DateTime pDateDebut, DateTime pDateFin)
+        public void CreerVacation(String pIdAtelier, Int32 pNumero, DateTime pDateDebut, DateTime pDateFin)
         {
             try
             {
                 UneOracleCommand = new OracleCommand("ins_vacation", CnOracle);
                 UneOracleCommand.CommandType = CommandType.StoredProcedure;
                 UneOracleCommand.Parameters.Add("pIdAtelier", OracleDbType.Int32, ParameterDirection.Input).Value = pIdAtelier;
-                UneOracleCommand.Parameters.Add("pNumero", OracleDbType.Int32, ParameterDirection.Input).Value = 3;
+                UneOracleCommand.Parameters.Add("pNumero", OracleDbType.Int32, ParameterDirection.Input).Value = pNumero;
                 UneOracleCommand.Parameters.Add("pHeureDebut", OracleDbType.Date, ParameterDirection.Input).Value = pDateDebut;
                 UneOracleCommand.Parameters.Add("pHeureFin", OracleDbType.Date, ParameterDirection.Input).Value = pDateFin;
                 UneOracleCommand.ExecuteNonQuery();

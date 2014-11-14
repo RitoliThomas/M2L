@@ -379,7 +379,7 @@ namespace MaisonDesLigues
             DateTime dateDebutConverted = Convert.ToDateTime(dated);
             DateTime dateFinConverted = Convert.ToDateTime(datef);
 
-            UneConnexion.CreerVacation(Convert.ToString(cmbVacationAtelier.SelectedValue), dateDebutConverted, dateFinConverted);
+            UneConnexion.CreerVacation(Convert.ToString(cmbVacationAtelier.SelectedValue),Convert.ToInt32(cmbVacationTheme.SelectedValue), dateDebutConverted, dateFinConverted);
         }
 
         ///// <summary>
