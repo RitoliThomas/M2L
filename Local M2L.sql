@@ -64,22 +64,21 @@ call ins_atelier('Atelier foot', '');
 
 --#Proc√©dure pour l'insertion d'une ligne dans la table theme.
 
-create or replace 
-procedure ins_theme( pIdAtelier IN theme.idatelier%type, pLibelleTheme IN theme.libelletheme%type)
+create or replace procedure ins_theme( pIdAtelier IN theme.idatelier%type, pNumero IN theme.numero%type, pLibelleTheme IN theme.libelletheme%type)
 IS
 dup_val_on_index exception;
 exnull exception;
 PRAGMA EXCEPTION_INIT ( exnull, -1400 ) ;
 
 BEGIN
-insert into theme (idatelier, numero, LIBELLETHEME) values(pIdAtelier, seqtheme.nextval, pLibelleTheme);
+insert into theme (idatelier, numero, LIBELLETHEME) values(pIdAtelier, pNumero, pLibelleTheme);
 
 EXCEPTION
   when exnull then
-    raise_application_error(-20099, 'Affectation null ‡ un champs not null');
+    raise_application_error(-20099, 'Affectation null √† un champs not null');
     
  when dup_val_on_index then
-    raise_application_error(-20009, 'Duplication de clÈ primaire');
+    raise_application_error(-20009, 'Duplication de cl√© primaire');
     
   when others then
     raise_application_error(-20001, 'Erreur');

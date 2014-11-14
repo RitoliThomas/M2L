@@ -530,7 +530,7 @@
             this.tabAjoutModif.Controls.Add(this.grpVacation);
             this.tabAjoutModif.Location = new System.Drawing.Point(4, 22);
             this.tabAjoutModif.Name = "tabAjoutModif";
-            this.tabAjoutModif.Size = new System.Drawing.Size(1137, 579);
+            this.tabAjoutModif.Size = new System.Drawing.Size(956, 579);
             this.tabAjoutModif.TabIndex = 1;
             this.tabAjoutModif.Text = "Ajouts/modifications";
             this.tabAjoutModif.UseVisualStyleBackColor = true;
@@ -699,7 +699,7 @@
             // cmbVacationTheme
             // 
             this.cmbVacationTheme.FormattingEnabled = true;
-            this.cmbVacationTheme.Location = new System.Drawing.Point(425, 98);
+            this.cmbVacationTheme.Location = new System.Drawing.Point(425, 104);
             this.cmbVacationTheme.Name = "cmbVacationTheme";
             this.cmbVacationTheme.Size = new System.Drawing.Size(121, 21);
             this.cmbVacationTheme.TabIndex = 11;
@@ -707,7 +707,7 @@
             // lblVacationTheme
             // 
             this.lblVacationTheme.AutoSize = true;
-            this.lblVacationTheme.Location = new System.Drawing.Point(462, 82);
+            this.lblVacationTheme.Location = new System.Drawing.Point(462, 88);
             this.lblVacationTheme.Name = "lblVacationTheme";
             this.lblVacationTheme.Size = new System.Drawing.Size(46, 13);
             this.lblVacationTheme.TabIndex = 10;
@@ -758,7 +758,6 @@
             this.btnEnregistrerVacation.TabIndex = 4;
             this.btnEnregistrerVacation.Text = "Ajouter";
             this.btnEnregistrerVacation.UseVisualStyleBackColor = true;
-            this.btnEnregistrerVacation.Click += new System.EventHandler(this.btnEnregistrerVacation_Click);
             // 
             // lblDateFinVacation
             // 
